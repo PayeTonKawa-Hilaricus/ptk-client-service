@@ -13,7 +13,10 @@ import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('customers')
+@ApiBearerAuth()
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
@@ -45,7 +48,7 @@ export class CustomersController {
   findOne(@Param('id') id: string) {
     return this.customersService.findOne(id);
   }
-   // Route protégée : Mettre à jour ma fiche client
+  // Route protégée : Mettre à jour ma fiche client
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(
