@@ -49,16 +49,16 @@ describe('CustomersController', () => {
 
   // AJOUTS
   it('update appelle le service', async () => {
-    if(controller.update) {
-       await controller.update('1', {});
-       expect(service.update).toHaveBeenCalled();
+    if (controller.update) {
+      await controller.update('1', {});
+      expect(service.update).toHaveBeenCalled();
     }
   });
 
   it('remove appelle le service', async () => {
-    if(controller.remove) {
-       await controller.remove('1');
-       expect(service.remove).toHaveBeenCalled();
+    if (controller.remove) {
+      await controller.remove('1');
+      expect(service.remove).toHaveBeenCalled();
     }
   });
 });
