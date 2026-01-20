@@ -24,16 +24,21 @@ export class CustomersController {
   // Route protégée : Créer ma fiche client
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Request() req, @Body() createCustomerDto: CreateCustomerDto) {
+  // CORRECTION ICI : ajout de ": any"
+  create(@Request() req: any, @Body() createCustomerDto: CreateCustomerDto) {
     // req.user contient le payload du token (userId, email...)
-    return this.customersService.create(req.user.userId, createCustomerDto);
+    return this.customersService.create(
+      req.user.userId as string,
+      createCustomerDto,
+    );
   }
 
   // Route protégée : Voir MON profil
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  getMyProfile(@Request() req) {
-    return this.customersService.findByUserId(req.user.userId);
+  // CORRECTION ICI : ajout de ": any"
+  getMyProfile(@Request() req: any) {
+    return this.customersService.findByUserId(req.user.userId as string);
   }
 
   // Route protégée : Voir tous les clients (Idéalement réservé ADMIN)
@@ -42,12 +47,14 @@ export class CustomersController {
   findAll() {
     return this.customersService.findAll();
   }
+
   // Route protégée : Voir un client par son ID (Idéalement réservé ADMIN)
   @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.customersService.findOne(id);
   }
+
   // Route protégée : Mettre à jour ma fiche client
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
@@ -57,6 +64,7 @@ export class CustomersController {
   ) {
     return this.customersService.update(id, updateCustomerDto);
   }
+
   // Route protégée : Supprimer un client par son ID (Idéalement réservé ADMIN)
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')

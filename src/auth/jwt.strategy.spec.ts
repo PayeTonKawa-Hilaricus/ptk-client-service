@@ -19,9 +19,9 @@ describe('JwtStrategy', () => {
     expect(strategy).toBeDefined();
   });
 
-  it('validate devrait renvoyer le payload', async () => {
+  it('validate devrait renvoyer le payload', () => {
     const payload = { sub: 'u1', email: 'test@test.com', role: 'USER' };
-    const result = await strategy.validate(payload);
+    const result = strategy.validate(payload);
 
     // Vérifie selon la logique de ton fichier strategy réel
     expect(result).toEqual({
